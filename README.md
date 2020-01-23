@@ -1,2 +1,2 @@
-# RadBird namedit
+# RadBird
 ElSys Gruppe 5
