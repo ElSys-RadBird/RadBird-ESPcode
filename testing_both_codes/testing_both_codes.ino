@@ -1,5 +1,5 @@
 RTC_DATA_ATTR int bootCount = 0;
-
+RTC_DATA_ATTR int tall = 0;
 
 #include <WiFi.h>
 #include <FirebaseESP32.h>
@@ -33,60 +33,50 @@ void setup(){
     //Setter opp en forbindelse med vår firebase
     Firebase.reconnectWiFi(true);
     //Kobler til automatisk til firebasen, usikker på når den gjør det 
-    
-    
 
   //Increment boot number and print it every reboot
   ++bootCount;
   Serial.println("Boot number: " + String(bootCount));
 
-  Serial.println("Ferdig med setup");
-
   //Print the wakeup reason for ESP32
   print_wakeup_reason();
-Serial.println("Ferdig med setup2");
+
   //Configure GPIO33 as ext0 wake up source for HIGH logic level
   esp_sleep_enable_ext0_wakeup(GPIO_NUM_13,1);
-Serial.println("Ferdig med setup3");
+  
   //Go to sleep now
   esp_deep_sleep_start();
-  Serial.println("Ferdig med setup4");
 }
 
-
-
 void function_test() { 
+    ++tall;
     String path = "node1";
-
+    String second_path = "timestamp" + String(tall);
     String jsonStr = "";
 
     FirebaseJson json1; // Oppretter et json objekt 
+    FirebaseJson json2; 
 
-    FirebaseJsonData jsonObj;
-
-    json1.set("tid", 69);
+    json1.set("tid", tall);
     json1.set("aktivitet", true);
     json1.set("funker", false);
-  Firebase.set(firebaseData, path, json1); 
+    
+    FirebaseJsonData jsonObj;
+
+    Firebase.set(firebaseData, path + "/" + second_path, json1); 
   };
 
-  
-
-void loop(){
-  Serial.println("Jeg er inni loopen");
-  }
+ 
+void loop(){}
 
 //Function that prints the reason by which ESP32 has been awaken from sleep
 void print_wakeup_reason(){
   esp_sleep_wakeup_cause_t wakeup_reason;
   wakeup_reason = esp_sleep_get_wakeup_cause();
   switch(wakeup_reason){
-    //case 1  : Serial.println("Wakeup caused by external signal using RTC_IO"); break;
     case 2: Serial.println("Wakeup caused by external signal using RTC_CNTL"); 
-    break;
-    //case 3  : Serial.println("Wakeup caused by timer"); break;
-    //case 4  : Serial.println("Wakeup caused by touchpad"); break;
-    //case 5  : Serial.println("Wakeup caused by ULP program"); break;
+      break;
     default : Serial.println("Wakeup was not caused by deep sleep"); break;
   }
+  function_test();
 }
