@@ -9,12 +9,30 @@ RTC_DATA_ATTR int tall = 0;
 #define FIREBASE_HOST "radbird-elsys.firebaseio.com" //Do not include https:// in FIREBASE_HOST
 #define FIREBASE_AUTH "EWydgguCOq7ZUTcxpdHtaxLoA8NC5Z3PyLwlcs0q"
 
+// Andreas shitcode goes here
+int radarPin = 13;
+int ledPin = LED_BUILTIN;
+volatile bool activity;
+bool bird = false;
+const int birdTimeLimit = 1000;
+unsigned long time = 0;
+
+bool lastBirdState = false;
+
+// Andreas shitcode ends here
+
 
 //Define Firebase Data object
 FirebaseData firebaseData;
 
 
 void setup(){
+  // More Andreas shitcode goes here
+  pinMode(ledPin, OUTPUT);
+  attachInterrupt(digitalPinToInterrupt(radarPin), radarEvent, RISING);
+
+  // More Andreas shitcode ends
+
   Serial.begin(115200);
   delay(1000); 
 
@@ -38,6 +56,7 @@ void setup(){
   ++bootCount;
   Serial.println("Boot number: " + String(bootCount));
 
+  /*
   //Print the wakeup reason for ESP32
   print_wakeup_reason();
 
@@ -46,6 +65,7 @@ void setup(){
   
   //Go to sleep now
   esp_deep_sleep_start();
+  */
 }
 
 void function_test() { 
@@ -69,6 +89,20 @@ void function_test() {
  
 void loop(){}
 
+  if (activity) {
+    time = millis();
+    activity = false;
+  }
+
+  if (millis() - time > birdTimeLimit) bird = true;
+  else bird = false;
+
+  if (bird != lastBirdState) {
+    if (!bird) function_test();
+    lastBirdState = bird;
+  }
+
+/*
 //Function that prints the reason by which ESP32 has been awaken from sleep
 void print_wakeup_reason(){
   esp_sleep_wakeup_cause_t wakeup_reason;
@@ -79,4 +113,9 @@ void print_wakeup_reason(){
     default : Serial.println("Wakeup was not caused by deep sleep"); break;
   }
   function_test();
+  */
+}
+
+void radarEvent() {
+  activity = true;
 }
