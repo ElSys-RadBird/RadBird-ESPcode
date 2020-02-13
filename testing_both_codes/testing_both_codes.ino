@@ -11,13 +11,15 @@ RTC_DATA_ATTR int tall = 0;
 
 // Andreas shitcode goes here
 int radarPin = 13;
-int ledPin = LED_BUILTIN;
+// int ledPin = LED_BUILTIN;
 volatile bool activity;
 bool bird = false;
-const int birdTimeLimit = 1000;
-unsigned long time = 0;
+const int birdTimeLimit = 2000;
+unsigned long timeCounter = 0;
 
 bool lastBirdState = false;
+
+void radarEvent();
 
 // Andreas shitcode ends here
 
@@ -28,7 +30,7 @@ FirebaseData firebaseData;
 
 void setup(){
   // More Andreas shitcode goes here
-  pinMode(ledPin, OUTPUT);
+  // pinMode(ledPin, OUTPUT);
   attachInterrupt(digitalPinToInterrupt(radarPin), radarEvent, RISING);
 
   // More Andreas shitcode ends
@@ -84,24 +86,26 @@ void function_test() {
     FirebaseJsonData jsonObj;
 
     Firebase.set(firebaseData, path + "/" + second_path, json1); 
+    Serial.print("tall: ");
+    Serial.println(tall);
   };
 
  
-void loop(){}
+void loop(){
 
   if (activity) {
-    time = millis();
+    timeCounter = millis();
     activity = false;
   }
 
-  if (millis() - time > birdTimeLimit) bird = true;
-  else bird = false;
+  bird = millis() - timeCounter < birdTimeLimit;
 
   if (bird != lastBirdState) {
-    if (!bird) function_test();
+    if (!bird) {
+      function_test();
+    }
     lastBirdState = bird;
   }
-
 /*
 //Function that prints the reason by which ESP32 has been awaken from sleep
 void print_wakeup_reason(){
