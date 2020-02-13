@@ -8,6 +8,9 @@
                 "_UNICODE"
             ],
             "intelliSenseMode": "msvc-x64"
+            "includePath": [
+                "C:/Users/andgr/OneDrive/Arduino/libraries/"
+            ]
         }
     ],
     "version": 4
