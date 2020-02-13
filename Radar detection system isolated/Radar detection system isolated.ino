@@ -1,4 +1,4 @@
-#include <TimerOne.h>
+
 
 const bool debug = true;	// Boolean for setting the program in its debug mode
 
