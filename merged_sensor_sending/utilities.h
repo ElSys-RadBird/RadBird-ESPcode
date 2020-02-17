@@ -10,6 +10,14 @@
 #define FIREBASE_AUTH "EWydgguCOq7ZUTcxpdHtaxLoA8NC5Z3PyLwlcs0q"
 
 
+// Global variables (?)
+
+// NTP server timestamp variables
+const char *ntpServer = "pool.ntp.org";
+
+
 void connectWiFi();
 
 String getTimestamp();
+
+unsigned long getUnixTimestamp();
