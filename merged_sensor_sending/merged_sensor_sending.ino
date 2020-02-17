@@ -14,11 +14,13 @@ extern int tall = 0;
 const int radarPin = 13;
 // int ledPin = pin number for debug LED
 const int birdTimeLimit = 2000;
-unsigned long timestamp;
+int timestamp;
 
 bool bird = false;
 bool lastBirdState = false;
 volatile unsigned long timeCounter = 0;
+
+const char *ntpServer = "pool.ntp.org";
 
 void radarEvent();
 void sendToFirebase();
@@ -57,7 +59,8 @@ void loop(){
     bird = millis() - timeCounter < birdTimeLimit;
     // On falling edge of "bird"
     if (bird != lastBirdState) {
-        timestamp = getUnixTimestamp(); // Updates the timestamp
+        if (bird) timestamp = getUnixTimestamp(); // Updates the timestamp
+        if (bird) Serial.println(timestamp);
         if (!bird) sendToFirebase();
         lastBirdState = bird;
     }

@@ -13,11 +13,10 @@
 // Global variables (?)
 
 // NTP server timestamp variables
-const char *ntpServer = "pool.ntp.org";
 
 
 void connectWiFi();
 
 String getTimestamp();
 
-unsigned long getUnixTimestamp();
+int getUnixTimestamp();
