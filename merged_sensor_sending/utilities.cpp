@@ -14,6 +14,19 @@ String getTimestamp() {
     return timeStringBuff;
 }
 
+unsigned long getUnixTimestamp() {
+    time_t now;
+    /*
+    struct tm timeinfo;
+    if(!getLocalTime(&timeinfo)) {
+        Serial.println("Failed to obtain time");
+        return(0);
+    }
+    */
+    time(&now);
+    return now;
+}
+
 // WiFi connection setup
 void connectWiFi() {
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
