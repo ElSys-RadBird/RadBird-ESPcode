@@ -14,7 +14,7 @@ extern int tall = 0;
 const int radarPin = 13;
 // int ledPin = pin number for debug LED
 const int birdTimeLimit = 2000;
-String timestamp;
+unsigned long timestamp;
 
 bool bird = false;
 bool lastBirdState = false;
@@ -23,11 +23,6 @@ volatile unsigned long timeCounter = 0;
 void radarEvent();
 void sendToFirebase();
 
-
-// NTP server timestamp variables
-const char *ntpServer = "pool.ntp.org";
-const long gmtOffset_sec = 3600;
-const int daylightOffset_sec = 0;
 
 
 //Define Firebase Data object
@@ -49,7 +44,7 @@ void setup() {
     //Kobler til automatisk til firebase, usikker på når den gjør det
 
     // Connecting to NTP server
-    configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+    configTime(0, 0, ntpServer);
 
     // Why is this here? This only works if using deep sleep. I am against using that
     //Increment boot number and print it every reboot
@@ -62,7 +57,7 @@ void loop(){
     bird = millis() - timeCounter < birdTimeLimit;
     // On falling edge of "bird"
     if (bird != lastBirdState) {
-        timestamp = getTimestamp(); // Updates the timestamp
+        timestamp = getUnixTimestamp(); // Updates the timestamp
         if (!bird) sendToFirebase();
         lastBirdState = bird;
     }
