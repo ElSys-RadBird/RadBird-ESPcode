@@ -19,7 +19,6 @@ void setup() {
 	Serial.begin(9600);			// Set up serial communication
 	pinMode(ledPin, OUTPUT);	// Set debug LED as an output
 	attachInterrupt(digitalPinToInterrupt(radarPin), radarEvent, RISING);
-
 }
 
 void loop () {
