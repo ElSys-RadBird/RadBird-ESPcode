@@ -31,7 +31,6 @@ volatile unsigned long timeCounter = 0; // For checking time since last radar
 
 // NTP server timestamp variables
 const char *ntpServer = "pool.ntp.org";
-int UNIXtimestamp;
 
 
 

@@ -6,6 +6,7 @@ int birdCount;
 FirebaseData firebaseData;
 const int nodeNumber = 1;   // Unique to each node deployed
 const String nodeName = "node" + String(nodeNumber);
+int UNIXtimestamp;
 
 
 // WiFi connection setup
@@ -47,7 +48,7 @@ int getUnixTimestamp() {
 
 // Returns the value of an integer stored in variablePath on Firebase. Returns a 0 on error.
 int getIntFromFirebase(String variablePath) {
-    if (FirebaseData.getint(firebaseData, variablePath) & firebaseData.dataType() == "int") return firebaseData.intData();
+    if (Firebase.getInt(firebaseData, variablePath) & firebaseData.dataType() == "int") return firebaseData.intData();
     else return 0;
 }
 

@@ -15,6 +15,7 @@ extern int birdCount;               // How many birds have been logged
 extern FirebaseData firebaseData;   // Firebase Data object
 extern const int nodeNumber;        // Which number the node has. Should perhaps be replaced with an ID
 extern const String nodeName;       // Name of the node. Should perhaps be replaced with an ID
+extern int UNIXtimestamp;           // The timestamp in UNIX time
 
 
 void connectWiFi();
@@ -23,6 +24,6 @@ void connectFirebase();
 
 int getUnixTimestamp();
 
-int getIntFromFirebase(String variablePath)
+int getIntFromFirebase(String variablePath);
 
 void sendToFirebase();
