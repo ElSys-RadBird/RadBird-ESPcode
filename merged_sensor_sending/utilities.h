@@ -9,14 +9,20 @@
 #define FIREBASE_HOST "radbird-elsys.firebaseio.com" //Do not include https:// in FIREBASE_HOST
 #define FIREBASE_AUTH "EWydgguCOq7ZUTcxpdHtaxLoA8NC5Z3PyLwlcs0q"
 
-
-// Global variables (?)
-
-// NTP server timestamp variables
+// Global variables. Make sure all of the externs are in the utilities.cpp as well!
+extern int bootCount;               // Counter for how many times the system has booted
+extern int birdCount;               // How many birds have been logged
+extern FirebaseData firebaseData;   // Firebase Data object
+extern const int nodeNumber;        // Which number the node has. Should perhaps be replaced with an ID
+extern const String nodeName;       // Name of the node. Should perhaps be replaced with an ID
 
 
 void connectWiFi();
 
-String getTimestamp();
+void connectFirebase();
 
 int getUnixTimestamp();
+
+int getIntFromFirebase(String variablePath)
+
+void sendToFirebase();

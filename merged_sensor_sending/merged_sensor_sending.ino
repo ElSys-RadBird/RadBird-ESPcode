@@ -1,66 +1,78 @@
-RTC_DATA_ATTR int bootCount = 0;
-extern int tall = 0;
+/*
+* TODO
+* - GPS
+*  - Everything
+* - Get the birdTimeLimit from Firebase
+* - Accelerometer
+*  - Everything
+* What happens on connection lost?
+* 
+*/
 
+#pragma once
 #include <WiFi.h>
 #include <FirebaseESP32.h>
 #include "time.h"
 #include "utilities.h"
 
-// #define WIFI_SSID "networkTestAndreas"
-// #define WIFI_PASSWORD "123456789"
-// #define FIREBASE_HOST "radbird-elsys.firebaseio.com" //Do not include https:// in FIREBASE_HOST
-// #define FIREBASE_AUTH "EWydgguCOq7ZUTcxpdHtaxLoA8NC5Z3PyLwlcs0q"
 
+// Pin declarations
 const int radarPin = 13;
 // int ledPin = pin number for debug LED
-const int birdTimeLimit = 2000;
-int timestamp;
+// const int gpsPin = ?
+// const int accelerometerPin = ?
 
-bool bird = false;
-bool lastBirdState = false;
-volatile unsigned long timeCounter = 0;
+// Bird variables
+const int birdTimeLimit = 2000;         // Milliseconds of quiet required to log a bird event
+bool bird = false;                      // Is a bird event ongoing
+bool lastBirdState = false;             // For sending on falling edge
+volatile unsigned long timeCounter = 0; // For checking time since last radar 
 
+
+// NTP server timestamp variables
 const char *ntpServer = "pool.ntp.org";
+int UNIXtimestamp;
 
+
+
+// ISR function
 void radarEvent();
-void sendToFirebase();
-
-
-
-//Define Firebase Data object
-FirebaseData firebaseData;
-
 
 void setup() {
+    
+    // Establishing Serial communication
+    Serial.begin(115200);
+
     // Setting up the interrupt
     attachInterrupt(digitalPinToInterrupt(radarPin), radarEvent, RISING);
 
-    Serial.begin(115200);
-    delay(1000);
-
+    // Connecting to WiFi
     connectWiFi();
 
-    Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
-    //Setter opp en forbindelse med vår firebase
-    Firebase.reconnectWiFi(true);
-    //Kobler til automatisk til firebase, usikker på når den gjør det
+    // Establishing connection with firebase
+    connectFirebase();
 
     // Connecting to NTP server
     configTime(0, 0, ntpServer);
 
-    // Why is this here? This only works if using deep sleep. I am against using that
-    //Increment boot number and print it every reboot
-    ++bootCount;
-    Serial.println("Boot number: " + String(bootCount));
+    // Sends the new bootCount to Firebase, and increments by one if successful
+    if (Firebase.set(firebaseData, nodeName + "/bootCount", bootCount + 1)) bootCount++;
+
+    // Prints new bootCount to Serial monitor
+    Serial.print("bootCount: ");
+    Serial.println(bootCount);
 }
- 
+
 void loop(){
 
+    // Overflow safe comparison
     bird = millis() - timeCounter < birdTimeLimit;
-    // On falling edge of "bird"
+    // On state change
     if (bird != lastBirdState) {
-        if (bird) timestamp = getUnixTimestamp(); // Updates the timestamp
-        if (bird) Serial.println(timestamp);
+        // On rising edge of "bird"
+        if (bird) UNIXtimestamp = getUnixTimestamp();  // Updates the timestamp
+        if (bird) Serial.println(UNIXtimestamp);       // Prints timestamp for debug purposes
+        // On falling edge of "bird"
         if (!bird) sendToFirebase();
         lastBirdState = bird;
     }
@@ -70,26 +82,3 @@ void loop(){
 void radarEvent() {
     timeCounter = millis();
 }
-
-void sendToFirebase() { 
-  ++tall;
-  String path = "node1";
-  String second_path = "timestamp" + String(tall);
-  String jsonStr = "";
-
-  FirebaseJson json1; // Oppretter et json objekt 
-  FirebaseJson json2; // Hvorfor 2 objekter?
-
-  json1.set("tid", timestamp);
-  json1.set("aktivitet", true);
-  json1.set("funker", false);
-  
-  FirebaseJsonData jsonObj;
-
-  Firebase.set(firebaseData, path + "/" + second_path, json1);
-
-  // Debug
-  Serial.print("tall: ");
-  Serial.println(tall);
-}
-
