@@ -51,6 +51,16 @@
   },
   {
     "Sourcefile": "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\build\\sketch\\merged_sensor_sending.ino.cpp",
+    "Include": "SoftwareSerial.h",
+    "Includepath": "C:\\Users\\andgr\\OneDrive\\Arduino\\libraries\\EspSoftwareSerial\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\build\\sketch\\merged_sensor_sending.ino.cpp",
+    "Include": "TinyGPS++.h",
+    "Includepath": "C:\\Users\\andgr\\OneDrive\\Arduino\\libraries\\TinyGPSPlus\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\build\\sketch\\merged_sensor_sending.ino.cpp",
     "Include": "",
     "Includepath": null
   },
@@ -176,6 +186,16 @@
   },
   {
     "Sourcefile": "C:\\Users\\andgr\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\SPI\\src\\SPI.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\andgr\\OneDrive\\Arduino\\libraries\\EspSoftwareSerial\\src\\SoftwareSerial.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\andgr\\OneDrive\\Arduino\\libraries\\TinyGPSPlus\\src\\TinyGPS++.cpp",
     "Include": "",
     "Includepath": null
   }

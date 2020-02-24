@@ -7,6 +7,11 @@ FirebaseData firebaseData;
 const int nodeNumber = 1;   // Unique to each node deployed
 const String nodeName = "node" + String(nodeNumber);
 int UNIXtimestamp;
+TinyGPSPlus gps;
+double lat;
+double lon;
+double alt;
+SoftwareSerial gpsSerial(gpsRXPin,gpsTXPin);
 
 
 // WiFi connection setup
@@ -31,7 +36,7 @@ void connectFirebase() {
     // Fetching the birdTimeLimit, bootCount and birdCount variables from Firebase
     bootCount = getIntFromFirebase(nodeName + "/bootCount");
     birdCount = getIntFromFirebase(nodeName + "/birdCount");
-    // birdTimeLimit = getIntFromFirebase("birdTimeLimit");    // This one is experimental and not yet working
+    birdTimeLimit = getIntFromFirebase("birdTimeLimit");    // This one is experimental and not yet tested
     // A test for storing variables for all nodes on Firebase, and for quicker editing of values
     // To be tested next time
 
@@ -58,6 +63,11 @@ void sendToFirebase() {
     // Increment the birdCount and send it to Firebase. Regardless of sending success
     Firebase.set(firebaseData, nodeName + "/birdCount", ++birdCount);
 
+    // Sending the position to Firebase. Not implemented yet
+    Firebase.set(firebaseData, nodeName + "/position/lat", lat);
+    Firebase.set(firebaseData, nodeName + "/position/lon", lon);
+    Firebase.set(firebaseData, nodeName + "/position/alt", alt);
+
     // Generates a new node to write to, with a leading zero hard coded for all birds before the tenth
     String second_path;
     if (birdCount < 10) second_path = "bird0" + String(birdCount);
@@ -66,9 +76,7 @@ void sendToFirebase() {
     // Generating a json object 
     FirebaseJson json;
 
-    // Appends the time, whether the unit is operational and eventually the position to the json object
-    // Perhaps the position should only be updated at boot, and not at every bird event?
-    // No, that would make the position a value sent too rarely to be a cool feature.
+    // Appends the time and whether the unit is operational
     json.set("tid", UNIXtimestamp);
     json.set("aktivitet", true);
     json.set("funker", false);
@@ -79,4 +87,18 @@ void sendToFirebase() {
     // Prints how many birds have passed
     Serial.print("birdCount: ");
     Serial.println(birdCount);
+}
+
+// Update latitude and longitude from the GPS unit
+void updatePosition() {
+    // Function content to update the latitude and longitude variables from the GPS
+    while (gpsSerial.available() > 0) {         // Is it OK to run this in a while loop, or will it get trapped here?
+        if (gps.encode(gpsSerial.read())) {     // Does this have to be inside an if-statement, or may we simply encode the serial string?
+            if (gps.location.isValid()) {
+                lat = gps.location.lat();
+                lon = gps.location.lng();
+                alt = gps.altitude.meters();
+            }
+        }
+    }
 }

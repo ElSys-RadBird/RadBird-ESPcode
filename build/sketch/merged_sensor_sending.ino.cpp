@@ -4,6 +4,7 @@
 * TODO
 * - GPS
 *  - Everything
+*  - Replace tinyGPS library with tinyGPS++
 * - Get the birdTimeLimit from Firebase
 * - Accelerometer
 *  - Everything
@@ -14,6 +15,8 @@
 #pragma once
 #include <WiFi.h>
 #include <FirebaseESP32.h>
+#include <SoftwareSerial.h>
+#include <TinyGPS++.h>
 #include "time.h"
 #include "utilities.h"
 
@@ -21,11 +24,12 @@
 // Pin declarations
 const int radarPin = 13;
 // int ledPin = pin number for debug LED
-// const int gpsPin = ?
 // const int accelerometerPin = ?
+const int gpsRXPin = 3;
+const int gpsTXPin = 4;
 
 // Bird variables
-const int birdTimeLimit = 2000;         // Milliseconds of quiet required to log a bird event
+// const int birdTimeLimit = 2000;         // Milliseconds of quiet required to log a bird event
 bool bird = false;                      // Is a bird event ongoing
 bool lastBirdState = false;             // For sending on falling edge
 volatile unsigned long timeCounter = 0; // For checking time since last radar 
@@ -39,11 +43,11 @@ const char *ntpServer = "pool.ntp.org";
 // ISR function
 void radarEvent();
 
-#line 40 "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\merged_sensor_sending\\merged_sensor_sending.ino"
+#line 44 "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\merged_sensor_sending\\merged_sensor_sending.ino"
 void setup();
-#line 65 "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\merged_sensor_sending\\merged_sensor_sending.ino"
+#line 76 "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\merged_sensor_sending\\merged_sensor_sending.ino"
 void loop();
-#line 40 "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\merged_sensor_sending\\merged_sensor_sending.ino"
+#line 44 "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\merged_sensor_sending\\merged_sensor_sending.ino"
 void setup() {
     
     // Establishing Serial communication
@@ -60,6 +64,13 @@ void setup() {
 
     // Connecting to NTP server
     configTime(0, 0, ntpServer);
+
+    // Setup GPS
+    gpsSerial.begin(9600);
+    updatePosition();
+    // Sending the position to Firebase. Not implemented yet
+    Firebase.set(firebaseData, nodeName + "/position/lat", lat);
+    Firebase.set(firebaseData, nodeName + "/position/lon", lon);
 
     // Sends the new bootCount to Firebase, and increments by one if successful
     if (Firebase.set(firebaseData, nodeName + "/bootCount", bootCount + 1)) bootCount++;

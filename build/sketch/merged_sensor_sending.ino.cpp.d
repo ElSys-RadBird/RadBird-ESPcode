@@ -223,4 +223,8 @@ c:\Users\andgr\Documents\GitHub\RadBird-ESPcode\build\sketch\merged_sensor_sendi
  C:\Users\andgr\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.4\libraries\SD\src/sd_defines.h \
  C:\Users\andgr\OneDrive\Arduino\libraries\Firebase_ESP32_Client\src/FirebaseJson.h \
  C:\Users\andgr\OneDrive\Arduino\libraries\Firebase_ESP32_Client\src/jsmn.h \
+ C:\Users\andgr\OneDrive\Arduino\libraries\EspSoftwareSerial\src/SoftwareSerial.h \
+ C:\Users\andgr\OneDrive\Arduino\libraries\EspSoftwareSerial\src/circular_queue/circular_queue.h \
+ C:\Users\andgr\OneDrive\Arduino\libraries\EspSoftwareSerial\src/circular_queue/Delegate.h \
+ C:\Users\andgr\OneDrive\Arduino\libraries\TinyGPSPlus\src/TinyGPS++.h \
  c:\Users\andgr\Documents\GitHub\RadBird-ESPcode\build\sketch\utilities.h
