@@ -32,10 +32,8 @@
 
 // Pin declarations
 const int radarPin = 13;
-// int ledPin = pin number for debug LED
-// const int accelerometerPin = ?
-const int gpsRXPin = 3;
-const int gpsTXPin = 4;
+
+
 
 // Bird variables
 // const int birdTimeLimit = 2000;         // Milliseconds of quiet required to log a bird event

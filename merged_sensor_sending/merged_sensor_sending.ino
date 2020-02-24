@@ -1,8 +1,8 @@
 /*
 * TODO
 * - GPS
-*  - Everything
-*  - Replace tinyGPS library with tinyGPS++
+*  - Theoretically implemented correctly
+*  - To be tested
 * - Get the birdTimeLimit from Firebase
 * - Accelerometer
 *  - Everything
@@ -21,7 +21,6 @@
 
 // Pin declarations
 const int radarPin = 13;
-
 
 
 // Bird variables

@@ -23,10 +23,8 @@
 
 // Pin declarations
 const int radarPin = 13;
-// int ledPin = pin number for debug LED
-// const int accelerometerPin = ?
-const int gpsRXPin = 3;
-const int gpsTXPin = 4;
+
+
 
 // Bird variables
 // const int birdTimeLimit = 2000;         // Milliseconds of quiet required to log a bird event
@@ -43,11 +41,11 @@ const char *ntpServer = "pool.ntp.org";
 // ISR function
 void radarEvent();
 
-#line 44 "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\merged_sensor_sending\\merged_sensor_sending.ino"
+#line 42 "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\merged_sensor_sending\\merged_sensor_sending.ino"
 void setup();
-#line 76 "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\merged_sensor_sending\\merged_sensor_sending.ino"
+#line 74 "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\merged_sensor_sending\\merged_sensor_sending.ino"
 void loop();
-#line 44 "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\merged_sensor_sending\\merged_sensor_sending.ino"
+#line 42 "c:\\Users\\andgr\\Documents\\GitHub\\RadBird-ESPcode\\merged_sensor_sending\\merged_sensor_sending.ino"
 void setup() {
     
     // Establishing Serial communication

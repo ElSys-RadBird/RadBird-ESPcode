@@ -1,8 +1,15 @@
 #include "utilities.h"
 
+// Pin declarations
+const int gpsRXPin = 3;
+const int gpsTXPin = 4;
+// const int ledPin = pin number for debug LED
+// const int accelerometerPin = ?
+
 // Global variables. Make sure all of the variables are declared as externs in the utilities.h as well!
 int bootCount;
 int birdCount;
+int birdTimeLimit;
 FirebaseData firebaseData;
 const int nodeNumber = 1;   // Unique to each node deployed
 const String nodeName = "node" + String(nodeNumber);
