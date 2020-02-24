@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:\\Users\\andgr\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\",
+                "C:\\Users\\andgr\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\",
+                "C:\\Users\\andgr\\OneDrive\\Arduino\\libraries\\",
+                "C:\\Users\\andgr\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\**",
+                "C:\\Users\\andgr\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\**"
+            ],
+            "forcedInclude": [],
+            "intelliSenseMode": "msvc-x64"
+        }
+    ],
+    "version": 4
+}

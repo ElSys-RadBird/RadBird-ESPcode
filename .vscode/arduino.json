@@ -1,0 +1,8 @@
+{
+    "board": "esp32:esp32:esp32doit-devkit-v1",
+    "configuration": "FlashFreq=80,UploadSpeed=921600,DebugLevel=none",
+    "port": "COM3",
+    "programmer": "AVRISP mkII",
+    "sketch": "merged_sensor_sending\\merged_sensor_sending.ino",
+    "output": "C:/Users/andgr/AppData/Local/Arduino15/build"
+}

@@ -1,4 +1,3 @@
-#include <TimerOne.h>
 
 const bool debug = true;	// Boolean for setting the program in its debug mode
 
@@ -12,14 +11,13 @@ unsigned long time = 0;		// Counter for time having elapsed, stopping when there
 /*
 * TODO:
 * Make the bird boolean so that it sends a bird event on FALLING
-* Check potential for overflow error on the millis()
+* Check potential for overflow error on the millis() I do not think this is an issue, considering the subtraction will underflow
 */
 
 void setup() {
 	Serial.begin(9600);			// Set up serial communication
 	pinMode(ledPin, OUTPUT);	// Set debug LED as an output
 	attachInterrupt(digitalPinToInterrupt(radarPin), radarEvent, RISING);
-
 }
 
 void loop () {
