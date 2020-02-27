@@ -39,6 +39,12 @@ const char *ntpServer = "pool.ntp.org";
 void radarEvent();
 
 void setup() {
+
+    // For debug purposes
+    pinMode(12, OUTPUT);
+    digitalWrite(12, HIGH);
+    delay(1000);  
+
     
     // Establishing Serial communication
     Serial.begin(115200);
@@ -56,11 +62,11 @@ void setup() {
     configTime(0, 0, ntpServer);
 
     // Setup GPS
-    gpsSerial.begin(9600);
+    // gpsSerial.begin(9600);
     updatePosition();
     // Sending the position to Firebase. Not implemented yet
-    Firebase.set(firebaseData, nodeName + "/position/lat", lat);
-    Firebase.set(firebaseData, nodeName + "/position/lon", lon);
+    Firebase.set(firebaseData, nodeName + "/position/center/lat", lat);
+    Firebase.set(firebaseData, nodeName + "/position/center/lng", lon);
 
     // Sends the new bootCount to Firebase, and increments by one if successful
     if (Firebase.set(firebaseData, nodeName + "/bootCount", bootCount + 1)) bootCount++;
@@ -77,6 +83,7 @@ void loop(){
     // On state change
     if (bird != lastBirdState) {
         // On rising edge of "bird"
+        updatePosition();
         if (bird) UNIXtimestamp = getUnixTimestamp();  // Updates the timestamp
         if (bird) Serial.println(UNIXtimestamp);       // Prints timestamp for debug purposes
         // On falling edge of "bird"

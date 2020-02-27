@@ -19,11 +19,13 @@ extern FirebaseData firebaseData;   // Firebase Data object
 extern const int nodeNumber;        // Which number the node has. Should perhaps be replaced with an ID
 extern const String nodeName;       // Name of the node. Should perhaps be replaced with an ID
 extern int UNIXtimestamp;           // The timestamp in UNIX time
-extern TinyGPSPlus gps;             // The gps object
 extern double lat;
 extern double lon;
-extern double alt;
+// extern double alt;
+/*
+extern TinyGPSPlus gps;             // The gps object
 extern SoftwareSerial gpsSerial;    // The serial object for reading the gps
+*/
 
 
 void connectWiFi();
