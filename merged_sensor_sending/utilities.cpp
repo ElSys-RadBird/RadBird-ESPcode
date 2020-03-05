@@ -114,7 +114,7 @@ void updatePosition() {
 }
 */
 
-// The testing function for 
+// The testing function for fake GPS positions
 void updatePosition() {
     lat = 63.42 + double(analogRead(gpsRXPin))/1000000;
     lon = 10.119460 + double(analogRead(gpsTXPin))/1000000;
