@@ -66,7 +66,7 @@ int getIntFromFirebase(String variablePath) {
     else return 0;
 }
 
-// Sends a json object to Firebase
+// Sends data to Firebase
 void sendToFirebase() { 
 
     // Increment the birdCount and send it to Firebase. Regardless of sending success
@@ -78,9 +78,9 @@ void sendToFirebase() {
     // Firebase.set(firebaseData, nodeName + "/position/alt", alt);
 
     // Generates a new bird event to write to, with a leading zero hard coded for all birds before the tenth
-    String second_path;
-    if (birdCount < 10) second_path = "birdEvents/bird0" + String(birdCount);
-    else                second_path = "birdEvents/bird"  + String(birdCount);
+    String secondPath;
+    if (birdCount < 10) secondPath = "birdEvents/bird0" + String(birdCount);
+    else                secondPath = "birdEvents/bird"  + String(birdCount);
 
     // Generating a json object 
     FirebaseJson json;
@@ -90,7 +90,7 @@ void sendToFirebase() {
     json.set("funker", false);
     
     // Sends the json object to Firebase
-    Firebase.set(firebaseData, nodeName + "/" + second_path, json);
+    Firebase.set(firebaseData, nodeName + "/" + secondPath, json);
 
     // Prints how many birds have passed
     Serial.print("birdCount: ");
