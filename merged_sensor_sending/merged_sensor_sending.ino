@@ -1,13 +1,12 @@
 /*
-* TODO
-* - GPS
-*  - Theoretically implemented correctly
-*  - To be tested
-* - Get the birdTimeLimit from Firebase
-* - Accelerometer
-*  - Everything
-* What happens on connection lost?
-* 
+  TODO
+  - GPS
+   - Theoretically implemented correctly
+   - To be tested
+  - Accelerometer
+   - Everything
+  What happens on connection lost
+
 */
 
 #pragma once
