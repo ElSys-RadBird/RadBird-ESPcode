@@ -22,6 +22,8 @@ TinyGPSPlus gps;
 SoftwareSerial gpsSerial(gpsRXPin,gpsTXPin);
 */
 
+bool isActive = true;
+
 
 // WiFi connection setup
 void connectWiFi() {
@@ -71,10 +73,12 @@ void sendToFirebase() {
 
     // Increment the birdCount and send it to Firebase. Regardless of sending success
     Firebase.set(firebaseData, nodeName + "/birdCount", ++birdCount);
+    Firebase.set(firebaseData, nodeName + "/funker", isActive);
+    
 
     // Sending the position to Firebase. Not implemented yet
-    Firebase.set(firebaseData, nodeName + "/position/center/lat", lat);
-    Firebase.set(firebaseData, nodeName + "/position/center/lng", lon);
+    // Firebase.set(firebaseData, nodeName + "/position/center/lat", lat);
+    // Firebase.set(firebaseData, nodeName + "/position/center/lng", lon);
     // Firebase.set(firebaseData, nodeName + "/position/alt", alt);
 
     // Generates a new bird event to write to, with a leading zero hard coded for all birds before the tenth
@@ -87,7 +91,7 @@ void sendToFirebase() {
 
     // Appends the time and whether the unit is operational
     json.set("tid", UNIXtimestamp);
-    json.set("funker", false);
+    json.set("funker", isActive);
     
     // Sends the json object to Firebase
     Firebase.set(firebaseData, nodeName + "/" + secondPath, json);

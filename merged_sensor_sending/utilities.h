@@ -6,7 +6,7 @@
 #include "time.h"
 
 // Global defines
-#define WIFI_SSID "networkTestAndreas"
+#define WIFI_SSID "gr5-network"
 #define WIFI_PASSWORD "123456789"
 #define FIREBASE_HOST "radbird-elsys.firebaseio.com" //Do not include https:// in FIREBASE_HOST
 #define FIREBASE_AUTH "EWydgguCOq7ZUTcxpdHtaxLoA8NC5Z3PyLwlcs0q"
@@ -26,6 +26,7 @@ extern double lon;
 extern TinyGPSPlus gps;             // The gps object
 extern SoftwareSerial gpsSerial;    // The serial object for reading the gps
 */
+extern bool isActive;
 
 
 void connectWiFi();
