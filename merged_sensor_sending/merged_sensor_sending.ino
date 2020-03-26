@@ -9,11 +9,10 @@
 
 */
 
-#pragma once
 #include <WiFi.h>
 #include <FirebaseESP32.h>
 #include <SoftwareSerial.h>
-#include <TinyGPS++.h>
+// #include <TinyGPS++.h>
 #include "time.h"
 #include "utilities.h"
 

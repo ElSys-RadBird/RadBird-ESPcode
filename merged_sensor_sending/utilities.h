@@ -2,12 +2,12 @@
 #include <WiFi.h>
 #include <FirebaseESP32.h>
 #include <SoftwareSerial.h>
-#include <TinyGPS++.h>
+// #include <TinyGPS++.h>
 #include "time.h"
 
 // Global defines
-#define WIFI_SSID "gr5-network"
-#define WIFI_PASSWORD "123456789"
+#define WIFI_SSID "Andreas_Nokia3310"
+#define WIFI_PASSWORD "andrgrampassword"
 #define FIREBASE_HOST "radbird-elsys.firebaseio.com" //Do not include https:// in FIREBASE_HOST
 #define FIREBASE_AUTH "EWydgguCOq7ZUTcxpdHtaxLoA8NC5Z3PyLwlcs0q"
 
