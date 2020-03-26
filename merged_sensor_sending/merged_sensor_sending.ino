@@ -70,6 +70,9 @@ void setup() {
     configTime(0, 0, ntpServer);
     delay (2000);
 
+    // Sends own ID number to firebase to simpify things on that side
+    Firebase.set(firebaseData, nodeName + "/nodeNumber", nodeNumber);
+
     // Setup GPS
     // gpsSerial.begin(9600);
     if (useGPS) updatePosition();
@@ -79,7 +82,7 @@ void setup() {
 
     // Sends the new bootCount to Firebase, and increments by one if successful
     if (Firebase.set(firebaseData, nodeName + "/bootCount", bootCount + 1)) bootCount++;
-
+    
     // Prints new bootCount to Serial monitor
     Serial.print("bootCount: ");
     Serial.println(bootCount);
